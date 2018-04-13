@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "201270209376",
+    "firebase_url": "https://healthtips-e5f8b.firebaseio.com",
+    "project_id": "healthtips-e5f8b",
+    "storage_bucket": "healthtips-e5f8b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:201270209376:android:c9141861637ad7f4",
+        "android_client_info": {
+          "package_name": "com.example.firebaseDbExample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "201270209376-7a9m4d6optr3v5eb2sne5sqb2hdulgtf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQIe5hG0HA8Rivf1KLmaqK0wFC_k8UPEc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
