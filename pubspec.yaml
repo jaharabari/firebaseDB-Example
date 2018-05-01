@@ -3,6 +3,7 @@ description: A new Flutter project.
 
 dependencies:
   firebase_database: "^0.4.2"
+  firebase_admob: "^0.5.2"
   flutter:
     sdk: flutter
 
