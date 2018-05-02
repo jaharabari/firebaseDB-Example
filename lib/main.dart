@@ -53,6 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
     FirebaseApp.configure(name: app.name, options: app.options);
 
     final FirebaseDatabase database = new FirebaseDatabase(app: app);
+    database.setPersistenceEnabled(true);
 
     _tipsRef = database.reference().child('tips');
   }
@@ -64,7 +65,6 @@ class _MyHomePageState extends State<MyHomePage> {
     _counterSubscription.cancel();
   }
 
-
   @override
   Widget build(BuildContext context) {
     TextStyle textStyle = Theme.of(context).textTheme.body1;
@@ -72,36 +72,54 @@ class _MyHomePageState extends State<MyHomePage> {
     textStyle = textStyle.copyWith(fontSize: 18.0);
 
     return new Scaffold(
-      appBar: new AppBar(
-        title: const Text('Health Tips'),
-      ),
-      body: new Column(
-        children: <Widget>[
-          new Flexible(
-            child: new FirebaseAnimatedList(
-              key: new ValueKey<bool>(_anchorToBottom),
-              query: _tipsRef,
-              reverse: _anchorToBottom,
-              sort: _anchorToBottom
-                  ? (DataSnapshot a, DataSnapshot b) => b.key.compareTo(a.key)
-                  : null,
-              itemBuilder: (BuildContext context, DataSnapshot snapshot,
-                  Animation<double> animation, int index) {
-                return new SizeTransition(
-                    sizeFactor: animation,
-                    child: new Card(
-                        child: new Padding(
-                      padding: new EdgeInsets.all(8.0),
-                      child: new Text(
-                        "${snapshot.value.toString()}",
-                        style: textStyle,
-                      ),
-                    )));
-              },
-            ),
+        appBar: new AppBar(
+          title: const Text('Health Tips'),
+        ),
+        body: new Container(
+          child: new Column(
+            children: <Widget>[
+              new Flexible(
+                child: new FirebaseAnimatedList(
+                  key: new ValueKey<bool>(_anchorToBottom),
+                  query: _tipsRef,
+                  reverse: _anchorToBottom,
+                  sort: _anchorToBottom
+                      ? (DataSnapshot a, DataSnapshot b) =>
+                          b.key.compareTo(a.key)
+                      : null,
+                  itemBuilder: (BuildContext context, DataSnapshot snapshot,
+                      Animation<double> animation, int index) {
+                    return new SizeTransition(
+                        sizeFactor: animation,
+                        child: new Cell(
+                            title: new Text(
+                          "${snapshot.value.toString()}",
+                          style: textStyle,
+                        )));
+                  },
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        ));
+  }
+}
+
+class Cell extends StatelessWidget {
+  Cell({this.title});
+  final Widget title;
+  @override
+  Widget build(BuildContext context) {
+    return new Container(
+      padding: new EdgeInsets.only(left: 4.0,right: 4.0),
+      child: new Card(
+          child: new Padding(
+        padding: new EdgeInsets.all(8.0),
+        child: new Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[this.title],
+        ),
+      )),
     );
   }
 }
